@@ -1,0 +1,39 @@
+﻿@inject ErenYalcinPortfoy.Services.I18nService I18n
+@implements IDisposable
+
+<div class="d-flex justify-content-end p-2">
+    <button class="btn btn-sm @(I18n.Lang == "tr" ? "btn-primary" : "btn-outline-primary") me-1"
+            @onclick='() => ChangeLanguage("tr")'>
+        TR
+    </button>
+    <button class="btn btn-sm @(I18n.Lang == "en" ? "btn-secondary" : "btn-outline-secondary")"
+            @onclick='() => ChangeLanguage("en")'>
+        EN
+    </button>
+</div>
+
+@code {
+    private bool _initialized;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_initialized)
+        {
+            await I18n.InitAsync();
+            I18n.OnLanguageChanged += StateHasChanged;
+            _initialized = true;
+            StateHasChanged(); // ilk render sonrası güncelle
+        }
+    }
+
+    private async Task ChangeLanguage(string lang)
+    {
+        await I18n.SetLanguageAsync(lang);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= StateHasChanged;
+    }
+}

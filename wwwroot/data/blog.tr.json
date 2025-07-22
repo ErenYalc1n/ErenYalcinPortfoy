@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "slug": "seo-uyumlu-blazor-blogu-nasil-yapilir",
+    "title": "SEO Uyumlu Blazor Blogu Nasıl Yapılır?",
+    "summary": "Blazor projelerinde SEO için temel yöntemler ve ipuçları.",
+    "description": "Blazor WebAssembly ile SEO’nun temel zorlukları ve bunlara yönelik pratik çözüm önerileri.",
+    "coverImage": "seo-blazor.jpg",
+    "date": "2025-07-22",
+    "tags": [ "blazor", "seo", "web" ],
+    "author": "Eren Yalçın",
+    "content": "Blazor ile SEO dostu bir blog geliştirmek için title, description gibi meta tag’lerin dinamik değiştirilmesi gerekir. Ayrıca paylaşımda düzgün görünmesi için OG etiketleri de önemlidir. Adım adım anlatım ve örnek kodlar bu yazıda...",
+    "ogImage": "seo-og.jpg"
+  },
+  {
+    "id": "2",
+    "slug": "blazor-ile-bootstrap-kullanimi",
+    "title": "Blazor ile Bootstrap Kullanımı",
+    "summary": "Blazor projelerinde Bootstrap ile hızlı ve modern tasarım.",
+    "description": "Blazor WASM’da Bootstrap’in nasıl kurulup kullanılacağı, component yapısıyla uyumu ve pratik ipuçları.",
+    "coverImage": "bootstrap-blazor.jpg",
+    "date": "2025-07-10",
+    "tags": [ "blazor", "bootstrap", "tasarım" ],
+    "author": "Eren Yalçın",
+    "content": "Blazor projesine Bootstrap eklemek için öncelikle index.html’e link etiketi eklenmeli veya lib klasöründen referans verilmelidir. Componentlerinizi Bootstrap class’ları ile hızlıca şık hale getirebilirsiniz...",
+    "ogImage": "bootstrap-og.jpg"
+  }
+]

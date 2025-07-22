@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "slug": "how-to-make-seo-friendly-blazor-blog",
+    "title": "How to Make a SEO-Friendly Blazor Blog?",
+    "summary": "Essential techniques and tips for SEO in Blazor projects.",
+    "description": "The main SEO challenges in Blazor WebAssembly and practical solutions.",
+    "coverImage": "seo-blazor.jpg",
+    "date": "2025-07-22",
+    "tags": [ "blazor", "seo", "web" ],
+    "author": "Eren Yalçın",
+    "content": "To make a SEO-friendly blog in Blazor, you need to dynamically change meta tags like title and description. OG tags are also important for proper sharing previews. Step-by-step guide and sample codes in this post...",
+    "ogImage": "seo-og.jpg"
+  },
+  {
+    "id": "2",
+    "slug": "using-bootstrap-with-blazor",
+    "title": "Using Bootstrap with Blazor",
+    "summary": "Fast and modern design with Bootstrap in Blazor projects.",
+    "description": "How to set up and use Bootstrap in Blazor WASM, its compatibility with component structure, and practical tips.",
+    "coverImage": "bootstrap-blazor.jpg",
+    "date": "2025-07-10",
+    "tags": [ "blazor", "bootstrap", "design" ],
+    "author": "Eren Yalçın",
+    "content": "To add Bootstrap to a Blazor project, add the link tag to index.html or reference it from the lib folder. You can quickly make your components stylish by using Bootstrap classes...",
+    "ogImage": "bootstrap-og.jpg"
+  }
+]

@@ -1,0 +1,16 @@
+﻿# Build output
+bin/
+obj/
+# VS ayarları
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# IDE ayarları
+.idea/
+.vscode/
+# Log dosyaları
+*.log
+# Publish output (genelde yok, publish alırsan)
+wwwroot/dist/

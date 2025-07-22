@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "slug": "wordle-backend",
+    "title": "Wordle Backend",
+    "summary": "Wordle oyununa özel .NET 9 backend servisi.",
+    "description": "Wordle oyunu için Entity Framework Core, JWT authentication ve Clean Architecture ile yazılmış bir backend servisi. Canlı demo ve açık kaynak kodu ile erişilebilir.",
+    "coverImage": "wordle-cover.jpg",
+    "date": "2025-07-01",
+    "tags": [ "dotnet", "api", "oyun" ],
+    "repoUrl": "https://github.com/erencoding/wordle-backend",
+    "demoUrl": "https://wordle.yoursite.com",
+    "techStack": [ ".NET 9", "EF Core", "JWT Auth", "Clean Architecture" ],
+    "ogImage": "wordle-og.jpg"
+  },
+  {
+    "id": "2",
+    "slug": "fitness-api",
+    "title": "Fitness Takip API",
+    "summary": "Kişisel fitness gelişimi için .NET tabanlı RESTful API.",
+    "description": "Kullanıcıların egzersizlerini, vücut ölçülerini ve beslenme alışkanlıklarını takip edebileceği, esnek ve güvenli bir API.",
+    "coverImage": "fitness-cover.jpg",
+    "date": "2025-05-20",
+    "tags": [ "fitness", "api", "dotnet" ],
+    "repoUrl": "https://github.com/erencoding/fitness-api",
+    "demoUrl": "",
+    "techStack": [ ".NET 9", "MySQL", "JWT Auth" ],
+    "ogImage": "fitness-og.jpg"
+  }
+]
