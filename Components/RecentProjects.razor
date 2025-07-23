@@ -1,0 +1,62 @@
+﻿@using ErenYalcinPortfoy.Services
+@inject ErenYalcinPortfoy.Services.I18nService I18n
+@inject I18nService I18n
+@inject HttpClient Http
+
+<h5 class="fw-bold mb-3">@_content?.BlogPage?.RecentProjects</h5>
+
+<div class="d-flex flex-column gap-3">
+    @if (_recentProjects is not null)
+    {
+        @foreach (var project in _recentProjects.Take(3))
+        {
+            <a href="/projects/@project.Slug" class="card border-0 shadow-sm p-3 d-flex gap-2 align-items-start hover-shadow text-dark text-decoration-none hover-grow">
+                <div class="rounded bg-secondary-subtle" style="width: 60px; height: 60px;"></div>
+                <div>
+                    <h6 class="fw-bold mb-1">@project.Title</h6>
+                    <p class="text-muted small mb-0">@project.Summary</p>
+                </div>
+            </a>
+
+        }
+    }
+</div>
+
+@code {
+    private List<Project>? _recentProjects;
+    private SiteContent? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var lang = I18n.Lang;
+        _recentProjects = await Http.GetFromJsonAsync<List<Project>>($"data/projects.{lang}.json");
+        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+
+        I18n.OnLanguageChanged += ReloadAsync;
+    }
+
+    private async Task ReloadAsync()
+    {
+        await OnInitializedAsync();
+        StateHasChanged();
+    }
+
+    public void Dispose() => I18n.OnLanguageChanged -= ReloadAsync;
+
+    public class Project
+    {
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+    }
+
+    public class SiteContent
+    {
+        public BlogPageContent? BlogPage { get; set; }
+    }
+
+    public class BlogPageContent
+    {
+        public string RecentProjects { get; set; } = "";
+    }
+}

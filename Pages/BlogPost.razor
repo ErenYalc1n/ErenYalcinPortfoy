@@ -1,0 +1,94 @@
+﻿@page "/blog/{Id:int}/{Slug}"
+@using ErenYalcinPortfoy.Services
+@inject HttpClient Http
+@inject I18nService I18n
+
+<NavbarSimple />
+
+<div class="container mt-5 min-vh-100 d-flex flex-column">
+    <div class="row g-5 flex-grow-1">
+        
+        <div class="col-lg-8">
+            @if (_post is null)
+            {
+                <p class="text-muted">Yükleniyor...</p>
+            }
+            else
+            {
+                <a href="/blog" class="text-decoration-none text-muted d-inline-block mb-3">
+                    ← @_content?.BackToBlog
+                </a>
+
+                <h2 class="fw-bold mb-3">@_post.Title</h2>
+                <p class="text-muted">@DateTime.Parse(_post.Date).ToString("dd.MM.yyyy")</p>
+                <img src="@_post.CoverImage" alt="@_post.Title" class="img-fluid rounded shadow-sm mb-4" />
+                <p class="fs-5">@_post.Content</p>
+            }
+        </div>
+        
+        <div class="col-lg-4">
+            <RecentProjects />
+        </div>
+    </div>
+</div>
+
+<Footer />
+
+@code {
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string Slug { get; set; } = "";
+
+    private BlogPostModel? _post;
+    private BlogPostContent? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += LoadContentAsync;
+
+        await I18n.InitAsync();       
+        await LoadContentAsync();  
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+
+        var blogs = await Http.GetFromJsonAsync<List<BlogPostModel>>($"data/blog.{lang}.json");
+        _post = blogs?.FirstOrDefault(b => int.TryParse(b.Id, out var blogId) && blogId == Id);
+
+        var contentJson = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+        _content = contentJson?.BlogPostPage;
+
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= LoadContentAsync;
+    }
+
+    public class BlogPostModel
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+        public string Date { get; set; } = "";
+        public List<string> Tags { get; set; } = new();
+        public string Author { get; set; } = "";
+        public string Content { get; set; } = "";
+        public string OgImage { get; set; } = "";
+    }
+
+    public class SiteContent
+    {
+        public BlogPostContent? BlogPostPage { get; set; }
+    }
+
+    public class BlogPostContent
+    {
+        public string BackToBlog { get; set; } = "";
+    }
+}

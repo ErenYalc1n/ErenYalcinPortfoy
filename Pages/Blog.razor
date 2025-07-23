@@ -1,0 +1,94 @@
+﻿@page "/blog"
+@using ErenYalcinPortfoy.Services
+@inject HttpClient Http
+@inject I18nService I18n
+
+<NavbarSimple />
+
+<div class="container mt-5">
+    <div class="row g-5">
+        
+        <div class="col-lg-8">
+            <h2 class="fw-bold mb-4">@_content?.BlogPage?.Title</h2>
+
+            @if (_blogs is null)
+            {
+                <p class="text-muted">Yükleniyor...</p>
+            }
+            else
+            {
+                @foreach (var post in _blogs.OrderByDescending(b => int.Parse(b.Id)))
+                {
+                    <div class="card shadow-sm border-0 mb-4 hover-grow">
+                        <a href="/blog/@post.Id/@post.Slug">
+                            <img src="@post.CoverImage"
+                                 class="card-img-top object-fit-cover"
+                                 alt="@post.Title"
+                                 style="height: 250px; object-fit: cover;" />
+                        </a>
+                        <div class="card-body">
+                            <a href="/blog/@post.Id/@post.Slug" class="text-decoration-none text-dark">
+                                <h4 class="fw-bold">@post.Title</h4>
+                            </a>
+                            <p class="text-muted mb-2">
+                                @DateTime.Parse(post.Date).ToString("dd.MM.yyyy")
+                            </p>
+                            <p>@post.Summary</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        
+        <div class="col-lg-4">
+            <RecentProjects />
+        </div>
+    </div>
+</div>
+
+<Footer />
+
+@code {
+    private List<BlogPost>? _blogs;
+    private SiteContent? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += LoadContentAsync;
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+        _blogs = await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json");
+        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= LoadContentAsync;
+    }
+
+    public class BlogPost
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+        public string Date { get; set; } = "";
+    }
+
+    public class SiteContent
+    {
+        public BlogPageContent? BlogPage { get; set; }
+    }
+
+    public class BlogPageContent
+    {
+        public string Title { get; set; } = "";
+        public string RecentProjects { get; set; } = "";
+    }
+}

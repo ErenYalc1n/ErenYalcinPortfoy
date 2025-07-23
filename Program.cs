@@ -1,4 +1,4 @@
-using ErenYalcinPortfoy;
+﻿using ErenYalcinPortfoy;
 using ErenYalcinPortfoy.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -10,4 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddSingleton<I18nService>();
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+var i18n = host.Services.GetRequiredService<I18nService>();
+
+await i18n.InitAsync();
+await host.RunAsync();

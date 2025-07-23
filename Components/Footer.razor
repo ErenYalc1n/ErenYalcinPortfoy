@@ -1,0 +1,39 @@
+﻿@inject ErenYalcinPortfoy.Services.I18nService I18n
+@inject HttpClient Http
+
+@if (_content is not null)
+{
+    <footer id="footer" class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <small class="text-secondary">
+                Created by <a href="#hero">@_content.Footer?.CreatedBy</a>
+            </small>
+        </div>
+    </footer>
+}
+
+@code {
+    private SiteContent? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var lang = I18n.Lang;
+        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+
+        I18n.OnLanguageChanged += async () =>
+        {
+            _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{I18n.Lang}.json");
+            StateHasChanged();
+        };
+    }
+
+    public class SiteContent
+    {
+        public FooterContent? Footer { get; set; }
+    }
+
+    public class FooterContent
+    {
+        public string CreatedBy { get; set; } = "";
+    }
+}

@@ -6,7 +6,7 @@
 {
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm" style="background-color:#0d2235;">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold ms-4 fs-4" href="/" style="cursor:pointer;">@_brand</a>
+            <a class="navbar-brand fw-bold ms-4 fs-4 hover-grow" href="/" style="cursor:pointer;">@_brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     @foreach (var item in _menuItems)
                     {
-                        <li class="nav-item">
+                        <li class="nav-item hover-grow">
                             <a class="nav-link px-4" href="javascript:void(0);"
                                @onclick="() => ScrollToSection(item.Key)">
                                 @item.Label

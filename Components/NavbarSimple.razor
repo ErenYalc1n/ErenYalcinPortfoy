@@ -1,0 +1,69 @@
+﻿@inject ErenYalcinPortfoy.Services.I18nService I18n
+@inject HttpClient Http
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm" style="background-color:#0d2235;">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold ms-4 fs-4" href="/">@_brand</a>
+
+        <div class="d-flex align-items-center ms-auto me-5">
+            <img src="img/tr.png"
+                 alt="Türkçe"
+                 title="Türkçe"
+                 style="width:28px; height:20px; object-fit:cover; margin-right:8px; cursor:pointer;
+                        opacity:@(I18n.Lang == "tr" ? "1" : "0.5");
+                        filter:@(I18n.Lang == "tr" ? "none" : "grayscale(1)");
+                        border: 2px solid @(I18n.Lang == "tr" ? "#4fc3f7" : "transparent");
+                        border-radius: 5px;
+                        box-shadow:@(I18n.Lang == "tr" ? "0 0 10px #4fc3f7" : "none");"
+                 @onclick='() => ChangeLanguage("tr")' />
+
+            <img src="img/eng.png"
+                 alt="English"
+                 title="English"
+                 style="width:28px; height:20px; object-fit:cover; cursor:pointer;
+                        opacity:@(I18n.Lang == "en" ? "1" : "0.5");
+                        filter:@(I18n.Lang == "en" ? "none" : "grayscale(1)");
+                        border: 2px solid @(I18n.Lang == "en" ? "#4fc3f7" : "transparent");
+                        border-radius: 5px;
+                        box-shadow:@(I18n.Lang == "en" ? "0 0 10px #4fc3f7" : "none");"
+                 @onclick='() => ChangeLanguage("en")' />
+        </div>
+    </div>
+</nav>
+
+@code {
+    private string _brand = "Eren Yalçın";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBrandAsync();
+        I18n.OnLanguageChanged += async () =>
+        {
+            await LoadBrandAsync();
+            StateHasChanged();
+        };
+    }
+
+    private async Task LoadBrandAsync()
+    {
+        var lang = I18n.Lang;
+        var url = $"data/sitecontent.{lang}.json";
+        var json = await Http.GetFromJsonAsync<SiteContent>(url);
+        _brand = json?.Navbar?.Brand ?? "Eren Yalçın";
+    }
+
+    private async Task ChangeLanguage(string lang)
+    {
+        await I18n.SetLanguageAsync(lang);
+    }
+
+    public class SiteContent
+    {
+        public NavbarContent? Navbar { get; set; }
+    }
+
+    public class NavbarContent
+    {
+        public string? Brand { get; set; }
+    }
+}

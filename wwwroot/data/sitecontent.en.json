@@ -54,5 +54,12 @@
   },
   "footer": {
     "createdBy": "Eren Yalçın"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "recentProjects": "Recent Projects"
+  },
+  "blogDetailPage": {
+    "backToBlog": "Back to blogs"
   }
 }

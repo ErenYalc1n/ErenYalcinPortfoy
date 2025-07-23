@@ -17,7 +17,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -135,3 +135,21 @@ code {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.hover-grow {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .hover-grow:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.hover-fade-grow {
+    transition: all 0.3s ease-in-out;
+}
+
+    .hover-fade-grow:hover {
+        transform: scale(1.03);
+        opacity: 0.9;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
