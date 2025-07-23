@@ -1,3 +1,58 @@
 {
-
+  "navbar": {
+    "brand": "Eren Yalçın",
+    "menu": [
+      {
+        "key": "hero",
+        "label": "Anasayfa"
+      },
+      {
+        "key": "projects",
+        "label": "Projelerim"
+      },
+      {
+        "key": "blog",
+        "label": "Blog"
+      },
+      {
+        "key": "contact",
+        "label": "İletişim"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Eren Yalçın",
+    "subtitle": ".NET Developer • Modern Web Ustası",
+    "button": "Projelerimi Gör"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "content": "Merhaba! Ben Eren, .NET dünyasında kod yazmayı ve modern web projeleri üretmeyi seven bir yazılımcıyım. Takım çalışmasını, sürekli öğrenmeyi ve kaliteli yazılım geliştirmeyi ön planda tutarım."
+  },
+  "projectsSection": {
+    "title": "Projelerim",
+    "viewAll": "Tümünü Gör",
+    "button": "Detaylar"
+  },
+  "blogSection": {
+    "title": "Blog",
+    "viewAll": "Tümünü Gör",
+    "button": "Detaylar"
+  },
+  "contactSection": {
+    "title": "Bana Ulaş",
+    "description": "Benimle iletişime geçmek istersen, e-posta gönderebilir ya da sosyal medya hesaplarımdan ulaşabilirsin.",
+    "email": "erencoding@gmail.com",
+    "github": {
+      "label": "GitHub",
+      "url": "https://github.com/erencoding"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/erencoding"
+    }
+  },
+  "footer": {
+    "createdBy": "Eren Yalçın"
+  }
 }

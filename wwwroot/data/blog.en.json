@@ -5,7 +5,7 @@
     "title": "How to Make a SEO-Friendly Blazor Blog?",
     "summary": "Essential techniques and tips for SEO in Blazor projects.",
     "description": "The main SEO challenges in Blazor WebAssembly and practical solutions.",
-    "coverImage": "seo-blazor.jpg",
+    "coverImage": "img/blog/blog1.jpg",
     "date": "2025-07-22",
     "tags": [ "blazor", "seo", "web" ],
     "author": "Eren Yalçın",
@@ -18,11 +18,37 @@
     "title": "Using Bootstrap with Blazor",
     "summary": "Fast and modern design with Bootstrap in Blazor projects.",
     "description": "How to set up and use Bootstrap in Blazor WASM, its compatibility with component structure, and practical tips.",
-    "coverImage": "bootstrap-blazor.jpg",
+    "coverImage": "img/blog/blog2.jpg",
     "date": "2025-07-10",
     "tags": [ "blazor", "bootstrap", "design" ],
     "author": "Eren Yalçın",
     "content": "To add Bootstrap to a Blazor project, add the link tag to index.html or reference it from the lib folder. You can quickly make your components stylish by using Bootstrap classes...",
     "ogImage": "bootstrap-og.jpg"
+  },
+  {
+    "id": "3",
+    "slug": "blazor-routing-best-practices",
+    "title": "Blazor Routing Best Practices",
+    "summary": "Learn how to structure routes in Blazor for better UX.",
+    "description": "Tips and tricks to manage clean, SEO-friendly, and maintainable routing structure in Blazor projects.",
+    "coverImage": "img/blog/blog3.jpg",
+    "date": "2025-06-25",
+    "tags": [ "blazor", "routing", "ux" ],
+    "author": "Eren Yalçın",
+    "content": "Blazor's routing system can be customized for better user experience. In this blog, we explore parameterized routes, nested pages, and dynamic route handling...",
+    "ogImage": "routing-og.jpg"
+  },
+  {
+    "id": "4",
+    "slug": "blazor-component-lifecycle-explained",
+    "title": "Blazor Component Lifecycle Explained",
+    "summary": "Master the lifecycle events of Blazor components.",
+    "description": "From OnInitialized to OnAfterRender — all lifecycle stages explained with use cases.",
+    "coverImage": "img/blog/blog4.jpg",
+    "date": "2025-06-15",
+    "tags": [ "blazor", "components", "lifecycle" ],
+    "author": "Eren Yalçın",
+    "content": "Understanding the lifecycle of Blazor components helps you write predictable and reactive UI. This post explains each stage with examples and common pitfalls...",
+    "ogImage": "lifecycle-og.jpg"
   }
 ]

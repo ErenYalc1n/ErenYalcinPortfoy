@@ -7,7 +7,7 @@ namespace ErenYalcinPortfoy.Services
         private readonly IJSRuntime _js;
         private string _lang = "tr";
 
-        public event Action? OnLanguageChanged;
+        public event Func<Task>? OnLanguageChanged;
 
         public string Lang => _lang;
 
@@ -25,7 +25,9 @@ namespace ErenYalcinPortfoy.Services
         {
             _lang = lang;
             await _js.InvokeVoidAsync("setLang", lang);
-            OnLanguageChanged?.Invoke();
+
+            if (OnLanguageChanged is not null)
+                await OnLanguageChanged.Invoke();
         }
     }
 }

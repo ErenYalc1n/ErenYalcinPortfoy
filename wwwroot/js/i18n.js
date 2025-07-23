@@ -5,4 +5,3 @@
 window.setLang = function (lang) {
     localStorage.setItem("lang", lang);
 };
-console.log("i18n.js loaded!");

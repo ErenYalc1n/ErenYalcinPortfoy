@@ -1,8 +1,293 @@
 ﻿@page "/"
+@using ErenYalcinPortfoy.Services
 
-<h3>Index</h3>
-<LanguageHeader />
+<Navbar />
+
+<!-- HERO SECTION -->
+@if (_content?.Hero is not null)
+{
+    <section id="hero" class="d-flex align-items-center justify-content-center text-white"
+             style="min-height: 100vh; background: linear-gradient(0deg,rgba(13,34,53,0.20),rgba(13,34,53,0.0)), url('img/hero.jpg') center; background-size: cover; background-repeat: no-repeat;">
+        <div class="text-center">
+            <h1 class="display-3 fw-bold mb-3">@_content.Hero.Title</h1>
+            <p class="lead fs-3 mb-4">@_content.Hero.Subtitle</p>
+            <a href="javascript:void(0);" class="btn btn-lg btn-info rounded-pill shadow"
+               @onclick='() => ScrollToSection("projects")'>@_content.Hero.Button</a>
+        </div>
+    </section>
+}
+
+<!-- HAKKIMDA -->
+@if (_content?.About is not null)
+{
+    <section id="about" class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="mb-3">@_content.About.Title</h2>
+                <p class="fs-5">@_content.About.Content</p>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- PROJELER -->
+@if (_content?.ProjectsSection is not null)
+{
+    <section id="projects" class="bg-light py-5">
+        <div class="container" style="max-width: 1000px;">
+            <h2 class="text-center mb-5">
+                <a href="/projects" class="text-decoration-none text-dark">@_content.ProjectsSection.Title</a>
+            </h2>
+            <div class="row g-4">
+                @foreach (var project in _projects)
+                {
+                    <div class="col-12">
+                        <div class="d-flex shadow rounded overflow-hidden" style="background-color: white;">
+                            <a href="/projects/@project.Slug" class="flex-shrink-0">
+                                <img src="@project.CoverImage"
+                                     class="img-fluid"
+                                     style="width: 162px; height: 162px; object-fit: cover;" />
+                            </a>
+                            <div class="flex-grow-1 ps-4 p-3 d-flex flex-column justify-content-start">
+                                <a href="/projects/@project.Slug" class="text-decoration-none text-dark">
+                                    <h5 class="fw-bold mb-1">@project.Title</h5>
+                                </a>
+                                <p class="mb-2 text-muted" style="line-height: 1.4;">@project.Summary</p>
+                                <div class="d-flex flex-wrap gap-2 mt-auto">
+                                    @if (project.Tags is not null)
+                                    {
+                                        @foreach (var tag in project.Tags)
+                                        {
+                                            <span class="px-2 py-1"
+                                                  style="background-color: #e9e9e9; font-size: 0.82rem; border-radius: 4px;">
+                                                @tag
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a href="/projects" class="btn btn-info text-white" style="background-color:#0d2235;">
+                    @_content.ProjectsSection.ViewAll
+                </a>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- BLOG -->
+@if (_content?.BlogSection is not null)
+{
+    <section id="blog" class="container py-5">
+        <h2 class="text-center mb-5">
+            <a href="/blog" class="text-decoration-none text-dark">@_content?.BlogSection?.Title</a>
+        </h2>
+        <div class="row justify-content-center gx-5 gy-5">
+            @foreach (var post in _blogs)
+            {
+                <div class="col-lg-4 col-md-5 col-sm-10">
+                    <div class="card h-100 shadow-sm d-flex flex-column">
+                        <a href="/blog/@post.Slug">
+                            <div style="overflow: hidden; height: 200px;">
+                                <img src="@post.CoverImage" class="card-img-top object-fit-cover" style="width:100%; height:100%;" />
+                            </div>
+                        </a>
+                        <div class="card-body d-flex flex-column">
+                            <a href="/blog/@post.Slug" class="text-decoration-none text-dark">
+                                <h5 class="card-title fw-bold">@post.Title</h5>
+                            </a>
+                            <p class="card-text" style="min-height: 5.5em;">@post.Summary</p>
+                            <a href="/blog/@post.Slug" class="btn btn-outline-secondary text-white mt-auto align-self-start" style="background-color:#0d2235;">
+                                @_content?.BlogSection?.Button
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/blog" class="btn btn-info text-white" style="background-color:#0d2235;">
+                @_content?.BlogSection?.ViewAll
+            </a>
+        </div>
+    </section>
+}
+
+<!-- CONTACT -->
+@if (_content?.ContactSection is not null)
+{
+    <section id="contact" class="bg-light py-5">
+        <div class="container" style="max-width: 1000px;">
+            <div class="row align-items-center">
+              
+                <div class="col-md-7 mb-4 mb-md-0 text-center text-md-start">
+                    <h2 class="fw-bold mb-3">@_content.ContactSection.Title</h2>
+                    <p class="text-muted">@_content.ContactSection.Description</p>
+                </div>
+
+                <div class="col-md-5 d-flex flex-column align-items-center align-items-md-start gap-3">
+ 
+                    <a href="mailto:@_content.ContactSection.Email"
+                       class="d-flex align-items-center gap-2 text-decoration-none text-dark fw-bold">
+                        <span class="bi bi-envelope fs-5 text-primary"></span>
+                        @_content.ContactSection.Email
+                    </a>
+
+                    <a href="@_content.ContactSection.Github.Url"
+                       target="_blank"
+                       class="d-flex align-items-center gap-2 text-decoration-none text-dark fw-bold">
+                        <span class="bi bi-github fs-5 text-dark"></span>
+                        @_content.ContactSection.Github.Label
+                    </a>
+
+                    <a href="@_content.ContactSection.Linkedin.Url"
+                       target="_blank"
+                       class="d-flex align-items-center gap-2 text-decoration-none text-dark fw-bold">
+                        <span class="bi bi-linkedin fs-5 text-primary"></span>
+                        @_content.ContactSection.Linkedin.Label
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- FOOTER -->
+<footer id="footer" class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <small class="text-secondary">Created by <a href="#hero">@_content?.Footer?.CreatedBy</a></small>
+    </div>
+</footer>
 
 @code {
+    [Inject] public required IJSRuntime JS { get; set; }
+    [Inject] public required HttpClient Http { get; set; }
+    [Inject] public required I18nService I18n { get; set; }
 
+    private List<ProjectItem> _projects = new();
+    private List<BlogPost> _blogs = new();
+    private SiteContent? _content;
+
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += LoadContentAsync;
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+        var projectData = await Http.GetFromJsonAsync<List<ProjectItem>>($"data/projects.{lang}.json");
+        var blogData = await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json");
+
+        _projects = projectData?.TakeLast(3).ToList() ?? new();
+        _blogs = blogData?.TakeLast(3).ToList() ?? new();
+
+        StateHasChanged();
+    }
+
+    private async Task ScrollToSection(string sectionId)
+    {
+        await JS.InvokeVoidAsync("scrollToSection", sectionId);
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= LoadContentAsync;
+    }
+  
+    public class ProjectItem
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+        public List<string>? Tags { get; set; } = new();
+    }
+
+    public class BlogPost
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+    }
+
+    public class SiteContent
+    {
+        public NavbarContent? Navbar { get; set; }
+        public HeroContent? Hero { get; set; }
+        public AboutContent? About { get; set; }
+        public FooterContent? Footer { get; set; }
+        public ProjectsSectionContent? ProjectsSection { get; set; }
+        public BlogSectionContent? BlogSection { get; set; }
+        public ContactSection? ContactSection { get; set; }
+    }
+
+    public class NavbarContent
+    {
+        public string? Brand { get; set; }
+        public List<MenuItem>? Menu { get; set; }
+    }
+
+    public class MenuItem
+    {
+        public string Key { get; set; } = "";
+        public string Label { get; set; } = "";
+    }
+
+    public class HeroContent
+    {
+        public string Title { get; set; } = "";
+        public string Subtitle { get; set; } = "";
+        public string Button { get; set; } = "";
+    }
+
+    public class AboutContent
+    {
+        public string Title { get; set; } = "";
+        public string Content { get; set; } = "";
+    }
+
+    public class FooterContent
+    {       
+        public string CreatedBy { get; set; } = "";
+    }
+
+    public class ProjectsSectionContent
+    {
+        public string Title { get; set; } = "";
+        public string ViewAll { get; set; } = "";
+        public string Button { get; set; } = "";
+    }
+
+    public class BlogSectionContent
+    {
+        public string Title { get; set; } = "";
+        public string ViewAll { get; set; } = "";
+        public string Button { get; set; } = "";
+    }
+
+    public class ContactSection
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string Email { get; set; } = "";
+        public ContactLink Github { get; set; } = new();
+        public ContactLink Linkedin { get; set; } = new();
+    }
+
+    public class ContactLink
+    {
+        public string Label { get; set; } = "";
+        public string Url { get; set; } = "";
+    }
 }

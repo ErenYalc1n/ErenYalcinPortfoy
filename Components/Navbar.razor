@@ -1,0 +1,113 @@
+﻿@inject ErenYalcinPortfoy.Services.I18nService I18n
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+@if (_menuItems != null)
+{
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm" style="background-color:#0d2235;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold ms-4 fs-4" href="/" style="cursor:pointer;">@_brand</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @foreach (var item in _menuItems)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link px-4" href="javascript:void(0);"
+                               @onclick="() => ScrollToSection(item.Key)">
+                                @item.Label
+                            </a>
+                        </li>
+                    }
+                  
+                    <li class="nav-item d-flex align-items-center mx-5">
+                        <img src="img/tr.png"
+                             alt="Türkçe"
+                             title="Türkçe"
+                             style="width:28px; height:20px; object-fit:cover; margin-right:8px; cursor:pointer;
+                        opacity:@(I18n.Lang == "tr" ? "1" : "0.5");
+                        filter:@(I18n.Lang == "tr" ? "none" : "grayscale(1)");
+                        border: 2px solid @(I18n.Lang == "tr" ? "#4fc3f7" : "transparent");
+                        border-radius: 5px;
+                        box-shadow:@(I18n.Lang == "tr" ? "0 0 10px #4fc3f7" : "none");"
+                             @onclick='() => ChangeLanguage("tr")' />
+
+                        <img src="img/eng.png"
+                             alt="English"
+                             title="English"
+                             style="width:28px; height:20px; object-fit:cover; cursor:pointer;
+                        opacity:@(I18n.Lang == "en" ? "1" : "0.5");
+                        filter:@(I18n.Lang == "en" ? "none" : "grayscale(1)");
+                        border: 2px solid @(I18n.Lang == "en" ? "#4fc3f7" : "transparent");
+                        border-radius: 5px;
+                        box-shadow:@(I18n.Lang == "en" ? "0 0 10px #4fc3f7" : "none");"
+                             @onclick='() => ChangeLanguage("en")' />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+}
+else
+{
+    <nav class="navbar navbar-dark" style="background-color:#0d2235;">
+        <div class="container-fluid">
+            <span class="navbar-brand">Eren Yalçın</span>
+        </div>
+    </nav>
+}
+
+@code {
+    private List<MenuItem>? _menuItems;
+    private string _brand = "Eren Yalçın";
+
+    private async Task LoadMenuAsync()
+    {
+        var lang = I18n.Lang;
+        var url = $"data/sitecontent.{lang}.json";
+        var json = await Http.GetFromJsonAsync<SiteContent>(url);
+        _brand = json?.Navbar?.Brand ?? "Eren Yalçın";
+        _menuItems = json?.Navbar?.Menu ?? new List<MenuItem>();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMenuAsync();
+
+        I18n.OnLanguageChanged += async () =>
+        {
+            await LoadMenuAsync();
+            StateHasChanged();
+        };
+    }
+
+    private async Task ScrollToSection(string key)
+    {
+        await JS.InvokeVoidAsync("scrollToSection", key);
+    }
+
+    private async Task ChangeLanguage(string lang)
+    {
+        await I18n.SetLanguageAsync(lang);
+    }
+
+    public class SiteContent
+    {
+        public NavbarContent? Navbar { get; set; }
+    }
+
+    public class NavbarContent
+    {
+        public string? Brand { get; set; }
+        public List<MenuItem>? Menu { get; set; }
+    }
+
+    public class MenuItem
+    {
+        public string Key { get; set; } = "";
+        public string Label { get; set; } = "";
+    }
+}
