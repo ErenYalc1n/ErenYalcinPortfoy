@@ -2,12 +2,13 @@
 @using ErenYalcinPortfoy.Services
 @inject HttpClient Http
 @inject I18nService I18n
+@inject IJSRuntime JS
 
 <NavbarSimple />
 
 <div class="container mt-5 min-vh-100 d-flex flex-column">
     <div class="row g-5 flex-grow-1">
-        
+
         <div class="col-lg-8">
             @if (_post is null)
             {
@@ -22,10 +23,10 @@
                 <h2 class="fw-bold mb-3">@_post.Title</h2>
                 <p class="text-muted">@DateTime.Parse(_post.Date).ToString("dd.MM.yyyy")</p>
                 <img src="@_post.CoverImage" alt="@_post.Title" class="img-fluid rounded shadow-sm mb-4" />
-                <p class="fs-5">@_post.Content</p>
+                <p class="fs-5">@((MarkupString)_post.Content)</p>
             }
         </div>
-        
+
         <div class="col-lg-4">
             <RecentProjects />
         </div>
@@ -45,22 +46,41 @@
     {
         I18n.OnLanguageChanged += LoadContentAsync;
 
-        await I18n.InitAsync();       
-        await LoadContentAsync();  
+        await I18n.InitAsync();
+        await LoadContentAsync();
     }
+
+    private static readonly Dictionary<string, List<BlogPostModel>> _blogCache = new();
+    private static readonly Dictionary<string, SiteContent> _contentCache = new();
 
     private async Task LoadContentAsync()
     {
         var lang = I18n.Lang;
 
-        var blogs = await Http.GetFromJsonAsync<List<BlogPostModel>>($"data/blog.{lang}.json");
+        if (!_blogCache.TryGetValue(lang, out var blogs))
+        {
+            blogs = await Http.GetFromJsonAsync<List<BlogPostModel>>($"data/blog.{lang}.json");
+            _blogCache[lang] = blogs!;
+        }
+
         _post = blogs?.FirstOrDefault(b => int.TryParse(b.Id, out var blogId) && blogId == Id);
 
-        var contentJson = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
-        _content = contentJson?.BlogPostPage;
+        if (!_contentCache.TryGetValue(lang, out var content))
+        {
+            content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+            _contentCache[lang] = content!;
+        }
+
+        _content = content?.BlogPostPage;
+
+        if (_post is not null)
+        {
+            await JS.InvokeVoidAsync("setMeta", _post.Title, _post.Description);
+        }
 
         StateHasChanged();
     }
+
 
     public void Dispose()
     {

@@ -1,6 +1,5 @@
 ﻿@using ErenYalcinPortfoy.Services
 @inject ErenYalcinPortfoy.Services.I18nService I18n
-@inject I18nService I18n
 @inject HttpClient Http
 
 <h5 class="fw-bold mb-3">@_content?.BlogPage?.RecentProjects</h5>
@@ -10,15 +9,22 @@
     {
         @foreach (var project in _recentProjects.Take(3))
         {
-            <a href="/projects/@project.Slug" class="card border-0 shadow-sm p-3 d-flex gap-2 align-items-start hover-shadow text-dark text-decoration-none hover-grow">
+            <div class="card border-0 shadow-sm p-3 d-flex gap-2 align-items-start hover-shadow text-dark text-decoration-none hover-grow">
                 <div class="rounded bg-secondary-subtle" style="width: 60px; height: 60px;"></div>
                 <div>
                     <h6 class="fw-bold mb-1">@project.Title</h6>
                     <p class="text-muted small mb-0">@project.Summary</p>
                 </div>
-            </a>
-
+            </div>
         }
+
+        <div class="d-flex justify-content-center mt-3">
+            <a href="/projects"
+               class="btn btn-sm btn-outline-info hover-fade-grow"
+               style="background-color:#0d2235; color: white;">
+                @_content?.ProjectsSection?.ViewAll
+            </a>
+        </div>
     }
 </div>
 
@@ -26,19 +32,42 @@
     private List<Project>? _recentProjects;
     private SiteContent? _content;
 
+    // Basit cache
+    private static readonly Dictionary<string, List<Project>> _projectCache = new();
+    private static readonly Dictionary<string, SiteContent> _contentCache = new();
+
     protected override async Task OnInitializedAsync()
     {
-        var lang = I18n.Lang;
-        _recentProjects = await Http.GetFromJsonAsync<List<Project>>($"data/projects.{lang}.json");
-        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
-
         I18n.OnLanguageChanged += ReloadAsync;
+
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+
+        if (!_projectCache.TryGetValue(lang, out var projects))
+        {
+            projects = await Http.GetFromJsonAsync<List<Project>>($"data/projects.{lang}.json");
+            _projectCache[lang] = projects!;
+        }
+
+        _recentProjects = projects;
+
+        if (!_contentCache.TryGetValue(lang, out var content))
+        {
+            content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+            _contentCache[lang] = content!;
+        }
+
+        _content = content;
+        StateHasChanged();
     }
 
     private async Task ReloadAsync()
     {
-        await OnInitializedAsync();
-        StateHasChanged();
+        await LoadContentAsync();
     }
 
     public void Dispose() => I18n.OnLanguageChanged -= ReloadAsync;
@@ -53,10 +82,18 @@
     public class SiteContent
     {
         public BlogPageContent? BlogPage { get; set; }
+        public ProjectsSectionContent? ProjectsSection { get; set; }
     }
 
     public class BlogPageContent
     {
         public string RecentProjects { get; set; } = "";
+    }
+
+    public class ProjectsSectionContent
+    {
+        public string Title { get; set; } = "";
+        public string ViewAll { get; set; } = "";
+        public string Button { get; set; } = "";
     }
 }

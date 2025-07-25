@@ -61,5 +61,14 @@
   },
   "blogDetailPage": {
     "backToBlog": "Back to blogs"
+  },
+  "seo": {
+    "title": "Eren Yalçın - .NET Developer",
+    "description": "Explore modern web projects and articles on Blazor, .NET, and software craftsmanship by Eren Yalçın."
+  },
+  "projectsPage": {
+    "title": "Projects",
+    "description": "You can find the projects I’ve developed on this page.",
+    "repoUrlDescription": "Click here for the GitHub repository..."
   }
 }

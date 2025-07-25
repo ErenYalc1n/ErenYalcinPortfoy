@@ -1,5 +1,8 @@
 ﻿@page "/"
 @using ErenYalcinPortfoy.Services
+@inject IJSRuntime JS
+@inject HttpClient Http
+@inject I18nService I18n
 
 <Navbar />
 
@@ -39,36 +42,31 @@
                 <a href="/projects" class="text-decoration-none text-dark">@_content.ProjectsSection.Title</a>
             </h2>
             <div class="row g-4">
-                @foreach (var project in _projects)
+                @foreach (var project in _projects.OrderByDescending(p => int.Parse(p.Id)).Take(3))
                 {
                     <div class="col-12 hover-grow">
                         <div class="d-flex shadow rounded overflow-hidden" style="background-color: white;">
-                            <a href="/projects/@project.Slug" class="flex-shrink-0">
-                                <img src="@project.CoverImage"
-                                     class="img-fluid"
-                                     style="width: 162px; height: 162px; object-fit: cover;" />
-                            </a>
+                            <img src="@project.CoverImage"
+                                 class="img-fluid flex-shrink-0"
+                                 style="width: 162px; height: 162px; object-fit: cover;" />
+
                             <div class="flex-grow-1 ps-4 p-3 d-flex flex-column justify-content-start">
-                                <a href="/projects/@project.Slug" class="text-decoration-none text-dark">
-                                    <h5 class="fw-bold mb-1">@project.Title</h5>
-                                </a>
+                                <h5 class="fw-bold mb-1">@project.Title</h5>
                                 <p class="mb-2 text-muted" style="line-height: 1.4;">@project.Summary</p>
                                 <div class="d-flex flex-wrap gap-2 mt-auto">
-                                    @if (project.Tags is not null)
+                                    @foreach (var tag in project.Tags)
                                     {
-                                        @foreach (var tag in project.Tags)
-                                        {
-                                            <span class="px-2 py-1"
-                                                  style="background-color: #e9e9e9; font-size: 0.82rem; border-radius: 4px;">
-                                                @tag
-                                            </span>
-                                        }
+                                        <span class="px-2 py-1"
+                                              style="background-color: #e9e9e9; font-size: 0.82rem; border-radius: 4px;">
+                                            @tag
+                                        </span>
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
+
             </div>
             <div class="text-center mt-4">
                 <a href="/projects" class="btn btn-info text-white hover-fade-grow" style="background-color:#0d2235;">
@@ -77,6 +75,7 @@
             </div>
         </div>
     </section>
+
 }
 
 <!-- BLOG -->
@@ -87,7 +86,7 @@
             <a href="/blog" class="text-decoration-none text-dark">@_content?.BlogSection?.Title</a>
         </h2>
         <div class="row justify-content-center gx-5 gy-5">
-            @foreach (var post in _blogs)
+            @foreach (var post in _blogs.OrderByDescending(p => int.Parse(p.Id)).Take(3))
             {
                 <div class="col-lg-4 col-md-5 col-sm-10 hover-grow">
                     <div class="card h-100 shadow-sm d-flex flex-column">
@@ -108,6 +107,7 @@
                     </div>
                 </div>
             }
+
         </div>
 
         <div class="text-center mt-4">
@@ -124,14 +124,14 @@
     <section id="contact" class="bg-light py-5">
         <div class="container" style="max-width: 1000px;">
             <div class="row align-items-center">
-              
+
                 <div class="col-md-7 mb-4 mb-md-0 text-center text-md-start">
                     <h2 class="fw-bold mb-3">@_content.ContactSection.Title</h2>
                     <p class="text-muted">@_content.ContactSection.Description</p>
                 </div>
 
                 <div class="col-md-5 d-flex flex-column align-items-center align-items-md-start gap-3">
- 
+
                     <a href="mailto:@_content.ContactSection.Email"
                        class="d-flex align-items-center gap-2 text-decoration-none text-dark fw-bold hover-grow">
                         <span class="bi bi-envelope fs-5 text-primary"></span>
@@ -161,13 +161,14 @@
 <Footer />
 
 @code {
-    [Inject] public required IJSRuntime JS { get; set; }
-    [Inject] public required HttpClient Http { get; set; }
-    [Inject] public required I18nService I18n { get; set; }
 
     private List<ProjectItem> _projects = new();
     private List<BlogPost> _blogs = new();
     private SiteContent? _content;
+
+    private static readonly Dictionary<string, SiteContent> _siteContentCache = new();
+    private static readonly Dictionary<string, List<ProjectItem>> _projectsCache = new();
+    private static readonly Dictionary<string, List<BlogPost>> _blogsCache = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -178,14 +179,37 @@
     private async Task LoadContentAsync()
     {
         var lang = I18n.Lang;
-        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
-        var projectData = await Http.GetFromJsonAsync<List<ProjectItem>>($"data/projects.{lang}.json");
-        var blogData = await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json");
+
+        if (!_siteContentCache.TryGetValue(lang, out _content))
+        {
+            _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+            _siteContentCache[lang] = _content!;
+        }
+
+        if (!_projectsCache.TryGetValue(lang, out var projectData))
+        {
+            projectData = await Http.GetFromJsonAsync<List<ProjectItem>>($"data/projects.{lang}.json");
+            _projectsCache[lang] = projectData!;
+        }
+
+        if (!_blogsCache.TryGetValue(lang, out var blogData))
+        {
+            blogData = await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json");
+            _blogsCache[lang] = blogData!;
+        }
 
         _projects = projectData?.TakeLast(3).ToList() ?? new();
         _blogs = blogData?.TakeLast(3).ToList() ?? new();
 
+        await SetMetaTagsAsync();
         StateHasChanged();
+    }
+
+    private async Task SetMetaTagsAsync()
+    {
+        var title = _content?.Navbar?.Brand ?? "Eren Yalçın";
+        var description = _content?.Seo?.Description ?? "Modern .NET ve Blazor projeleriyle yazılım dünyasında iz bırakın.";
+        await JS.InvokeVoidAsync("setMeta", title, description);
     }
 
     private async Task ScrollToSection(string sectionId)
@@ -197,7 +221,7 @@
     {
         I18n.OnLanguageChanged -= LoadContentAsync;
     }
-  
+
     public class ProjectItem
     {
         public string Id { get; set; } = "";
@@ -205,7 +229,7 @@
         public string Title { get; set; } = "";
         public string Summary { get; set; } = "";
         public string CoverImage { get; set; } = "";
-        public List<string>? Tags { get; set; } = new();
+        public List<string> Tags { get; set; } = new();
     }
 
     public class BlogPost
@@ -226,6 +250,13 @@
         public ProjectsSectionContent? ProjectsSection { get; set; }
         public BlogSectionContent? BlogSection { get; set; }
         public ContactSection? ContactSection { get; set; }
+        public SeoContent? Seo { get; set; } // 👈 BU YENİ
+    }
+
+    public class SeoContent
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
     }
 
     public class NavbarContent
@@ -254,7 +285,7 @@
     }
 
     public class FooterContent
-    {       
+    {
         public string CreatedBy { get; set; } = "";
     }
 

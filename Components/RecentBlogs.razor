@@ -1,0 +1,81 @@
+﻿@using ErenYalcinPortfoy.Services
+@inject HttpClient Http
+@inject I18nService I18n
+
+<div class="card shadow-sm p-3 mb-4">
+    <h5 class="fw-bold mb-3">@_content?.RecentBlogs</h5>
+
+    @if (_blogs.Any())
+    {
+        @foreach (var blog in _blogs)
+        {
+            <a href="/blog/@blog.Id/@blog.Slug" class="d-block text-decoration-none text-dark mb-2">
+                <div class="d-flex gap-3 align-items-center">
+                    <img src="@blog.CoverImage" style="width:60px;height:60px;object-fit:cover;" class="rounded shadow-sm" />
+                    <div>
+                        <div class="fw-semibold">@blog.Title</div>
+                        <div class="text-muted small">@DateTime.Parse(blog.Date).ToString("dd.MM.yyyy")</div>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Yükleniyor...</p>
+    }
+</div>
+
+@code {
+    private List<BlogPost> _blogs = new();
+    private BlogPageContent? _content;
+    private string? _lastLang;
+
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += ReloadAsync;
+        await LoadContentAsync();
+    }
+
+    private async Task ReloadAsync()
+    {
+        await LoadContentAsync();
+        StateHasChanged();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+        if (lang == _lastLang) return;
+        _lastLang = lang;
+
+        _blogs = (await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json"))?
+                    .OrderByDescending(x => int.Parse(x.Id)).Take(3).ToList() ?? new();
+
+        var content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+        _content = content?.BlogPage;
+    }
+
+    public void Dispose() => I18n.OnLanguageChanged -= ReloadAsync;
+
+    public class BlogPost
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+        public string Date { get; set; } = "";
+    }
+
+    public class BlogPageContent
+    {
+        public string Title { get; set; } = "";
+        public string RecentProjects { get; set; } = "";
+        public string RecentBlogs { get; set; } = "Son Bloglar";
+    }
+
+    public class SiteContent
+    {
+        public BlogPageContent? BlogPage { get; set; }
+    }
+}

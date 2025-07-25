@@ -1,0 +1,117 @@
+﻿@page "/projects"
+@using ErenYalcinPortfoy.Services
+@inject HttpClient Http
+@inject I18nService I18n
+@inject IJSRuntime JS
+
+<NavbarSimple />
+
+<div class="container py-5 min-vh-100 d-flex flex-column">
+    <h2 class="text-center mb-5">@_content?.ProjectsPage?.Title</h2>
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row g-4">
+                @foreach (var project in _projects.OrderByDescending(p => int.Parse(p.Id)))
+                {
+                    <div class="col-12 hover-grow">
+                        <div class="d-flex shadow rounded overflow-hidden p-3" style="background-color: white; min-height: 180px;">
+                            <div class="flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 140px; height: 140px;">
+                                <img src="@project.CoverImage"
+                                     class="img-fluid"
+                                     style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                            </div>
+                            <div class="flex-grow-1 ps-4 d-flex flex-column justify-content-start">
+                                <h5 class="fw-bold mb-1">@project.Title</h5>
+                                <p class="mb-2 text-muted" style="line-height: 1.4;">@project.Summary</p>
+
+                                <div class="d-flex flex-wrap gap-2 mt-auto">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="px-2 py-1 bg-light border rounded small">@tag</span>
+                                    }
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(project.RepoUrl))
+                                {
+                                    <a href="@project.RepoUrl"
+                                       target="_blank"
+                                       class="small mt-2 text-decoration-none text-info">
+                                        @_content?.ProjectsPage?.RepoUrlDescription
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-3 mt-5 mt-lg-0">
+            <RecentBlogs />
+        </div>
+    </div>
+</div>
+
+<Footer />
+
+@code {
+    private List<ProjectModel> _projects = new();
+    private SiteContent? _content;
+    private string? _lastLang;
+
+    protected override async Task OnInitializedAsync()
+    {
+        I18n.OnLanguageChanged += LoadContentAsync;
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        var lang = I18n.Lang;
+        if (lang == _lastLang) return;
+        _lastLang = lang;
+
+        _projects = await Http.GetFromJsonAsync<List<ProjectModel>>($"data/projects.{lang}.json") ?? new();
+        _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
+
+        await JS.InvokeVoidAsync("setMeta",
+            _content?.ProjectsPage?.Title ?? "Projects",
+            _content?.ProjectsPage?.Description ?? "");
+
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        I18n.OnLanguageChanged -= LoadContentAsync;
+    }
+
+    public class ProjectModel
+    {
+        public string Id { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Summary { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string CoverImage { get; set; } = "";
+        public string Date { get; set; } = "";
+        public List<string> Tags { get; set; } = new();
+        public string RepoUrl { get; set; } = "";
+        public string DemoUrl { get; set; } = "";
+        public List<string> TechStack { get; set; } = new();
+        public string OgImage { get; set; } = "";
+    }
+
+    public class SiteContent
+    {
+        public ProjectPageContent? ProjectsPage { get; set; }
+    }
+
+    public class ProjectPageContent
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string RepoUrlDescription { get; set; } = "";
+    }
+}

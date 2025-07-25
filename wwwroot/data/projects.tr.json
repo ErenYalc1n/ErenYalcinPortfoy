@@ -1,58 +1,58 @@
 [
   {
     "id": "1",
-    "slug": "wordle-backend",
-    "title": "Wordle Backend",
-    "summary": "Wordle oyunu için .NET 9 backend servisi.",
-    "description": "Entity Framework Core, JWT kimlik doğrulama ve Clean Architecture ile inşa edilmiş Wordle oyunu backend servisi. Açık kaynak ve canlı demo olarak sunulmaktadır.",
+    "slug": "mywebsite-blazor",
+    "title": "Blazor WASM Portföy",
+    "summary": "Blazor WebAssembly ve Bootstrap CSS ile geliştirilen, Türkçe ve İngilizce destekli modern, statik bir portföy web sitesi.",
     "coverImage": "img/project/project1.jpg",
-    "date": "2025-07-01",
-    "tags": [ "dotnet", "api", "oyun" ],
-    "repoUrl": "https://github.com/erencoding/wordle-backend",
-    "demoUrl": "https://wordle.yoursite.com",
-    "techStack": [ ".NET 9", "EF Core", "JWT Kimlik", "Clean Architecture" ],
-    "ogImage": "wordle-og.jpg"
+    "date": "2025-07-24",
+    "tags": [ "C#", ".NET 9", "Blazor", "WebAssembly", "i18n", "Bootstrap", "Css", "Javascript", "Html", "SEO" ],
+    "repoUrl": "https://github.com/ErenYalc1n/ErenYalcinPortfoy",
+    "demoUrl": ""
   },
   {
     "id": "2",
-    "slug": "fitness-api",
-    "title": "Fitness Takip API",
-    "summary": "Kişisel fitness takibi için .NET tabanlı RESTful API.",
-    "description": "Kullanıcıların antrenman, vücut ölçüleri ve beslenme alışkanlıklarını takip etmeleri için güvenli ve esnek bir API.",
+    "slug": "user-module-template",
+    "title": "User Module Template",
+    "summary": "Bu proje, .NET 9 ve Clean Architecture prensipleri ile geliştirilen, bağımsız olarak başka projelere entegre edilebilecek bir kullanıcı yönetim modülüdür. İçerisinde JWT ve Refresh Token sistemi, e-posta doğrulama, rol bazlı yetkilendirme, şifre sıfırlama gibi birçok temel özelliği barındırır. Serilog ile gelişmiş loglama ve global exception middleware’i sayesinde kurumsal projelere entegre edilmesi oldukça kolaydır.",
     "coverImage": "img/project/project2.jpg",
-    "date": "2025-05-20",
-    "tags": [ "fitness", "api", "dotnet" ],
-    "repoUrl": "https://github.com/erencoding/fitness-api",
-    "demoUrl": "",
-    "techStack": [ ".NET 9", "MySQL", "JWT Kimlik" ],
-    "ogImage": "fitness-og.jpg"
+    "date": "2025-07-01",
+    "tags": [ ".NET 9", "WebAPI", "EF Core", "JWT", "Refresh Token", "Clean Architecture", "Serilog", "MediatR" ],
+    "repoUrl": "https://github.com/ErenYalc1n/UserModuleTemplate",
+    "demoUrl": ""
   },
   {
     "id": "3",
-    "slug": "aidat-saas",
-    "title": "Aidat Yönetimi SaaS",
-    "summary": "Apartman aidatlarını yönetmek için SaaS platformu.",
-    "description": "Ödeme takibi, otomatik hatırlatıcılar, gelir/gider grafikleri ve kullanıcı yönetimi içerir.",
+    "slug": "wordle-backend",
+    "title": "Wordle Game WebAPI",
+    "summary": "Wordle tarzı kelime tahmin oyununa özel geliştirilen, kullanıcı yönetimi, skor takibi ve oyun mantığını barındıran .NET 9 tabanlı Web API projesi. .NET 9 ile beraber modern geliştirme araçları ve metodları ile hazırlanıp, Development ortamında MSSQL, Production ortamında ise PostgreSQL kullanıldı.",
     "coverImage": "img/project/project3.jpg",
-    "date": "2025-04-12",
-    "tags": [ "saas", "finans", "dotnet" ],
-    "repoUrl": "https://github.com/erencoding/aidat-saas",
-    "demoUrl": "",
-    "techStack": [ ".NET 8", "PostgreSQL", "Stripe API", "Modüler Monolith" ],
-    "ogImage": "aidat-og.jpg"
+    "date": "2025-07-10",
+    "tags": [ "C#", ".NET 9", "EF Core", "Clean Architecture", "PostgreSQL", "MSSQL", "CQRS", "FluentValidation", "AutoMapper", "JWT", "SeriLog", "MediatR" ],
+    "repoUrl": "https://github.com/ErenYalc1n/Wordle-WebAPI",
+    "demoUrl": ""
   },
   {
     "id": "4",
-    "slug": "blazor-portfolio",
-    "title": "Blazor Portföy Sitesi",
-    "summary": "Blazor WebAssembly ile yapılmış kişisel portföy.",
-    "description": "Dil seçimi, tema değiştirme ve SEO yapısına sahip tam duyarlı kişisel web sitesi.",
+    "slug": "wordle-frontend",
+    "title": "React ile Wordle Entegrasyonu (Devam etmekte)",
+    "summary": "Wordle API ile entegre olacak, kullanıcı dostu ve mobil uyumlu React tabanlı oyun arayüzü. Modern UI/UX odaklı olarak geliştirilmektedir.",
     "coverImage": "img/project/project4.jpg",
-    "date": "2025-03-05",
-    "tags": [ "blazor", "portföy", "frontend" ],
-    "repoUrl": "https://github.com/erencoding/blazor-portfolio",
-    "demoUrl": "https://portfolio.yoursite.com",
-    "techStack": [ "Blazor WASM", "Bootstrap 5", "i18n", "Özel Routing" ],
-    "ogImage": "portfolio-og.jpg"
+    "date": "",
+    "tags": [""],
+    "repoUrl": "",
+    "demoUrl": ""
+  },
+  {
+    "id": "5",
+    "slug": "forum",
+    "title": "Forum Sitesi WebAPI'si (Devam etmekte)",
+    "summary": ".NET 9 kullanarak belirli bir sektöre yönelik kapsamlı bir forum, blog, hizmet SaaS uygulaması.",
+    "coverImage": "img/project/project5.jpg",
+    "date": "",
+    "tags": [""],
+    "repoUrl": "",
+    "demoUrl": ""
   }
 ]
+  

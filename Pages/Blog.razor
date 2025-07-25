@@ -7,7 +7,7 @@
 
 <div class="container mt-5">
     <div class="row g-5">
-        
+
         <div class="col-lg-8">
             <h2 class="fw-bold mb-4">@_content?.BlogPage?.Title</h2>
 
@@ -39,7 +39,7 @@
                 }
             }
         </div>
-        
+
         <div class="col-lg-4">
             <RecentProjects />
         </div>
@@ -51,6 +51,7 @@
 @code {
     private List<BlogPost>? _blogs;
     private SiteContent? _content;
+    private string? _lastLang;
 
     protected override async Task OnInitializedAsync()
     {
@@ -61,6 +62,9 @@
     private async Task LoadContentAsync()
     {
         var lang = I18n.Lang;
+        if (lang == _lastLang) return;
+        _lastLang = lang;
+
         _blogs = await Http.GetFromJsonAsync<List<BlogPost>>($"data/blog.{lang}.json");
         _content = await Http.GetFromJsonAsync<SiteContent>($"data/sitecontent.{lang}.json");
         StateHasChanged();

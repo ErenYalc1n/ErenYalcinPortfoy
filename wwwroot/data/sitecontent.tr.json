@@ -1,4 +1,18 @@
 {
+  "seo": {
+    "home": {
+      "title": "Eren Yalçın",
+      "description": "Yazılım geliştiricisi Eren Yalçın'ın modern web projeleri, blog yazıları ve iletişim bilgileri."
+    },
+    "projects": {
+      "title": "Projeler - Eren Yalçın",
+      "description": "Eren Yalçın tarafından geliştirilen .NET tabanlı projelerin listesi."
+    },
+    "blog": {
+      "title": "Blog - Eren Yalçın",
+      "description": "Blazor, .NET, yazılım geliştirme ve modern web teknolojileri üzerine yazılar."
+    }
+  },
   "navbar": {
     "brand": "Eren Yalçın",
     "menu": [
@@ -42,14 +56,14 @@
   "contactSection": {
     "title": "Bana Ulaş",
     "description": "Benimle iletişime geçmek istersen, e-posta gönderebilir ya da sosyal medya hesaplarımdan ulaşabilirsin.",
-    "email": "erencoding@gmail.com",
+    "email": "94.erenyalcin@gmail.com",
     "github": {
       "label": "GitHub",
-      "url": "https://github.com/erencoding"
+      "url": "https://github.com/ErenYalc1n"
     },
     "linkedin": {
       "label": "LinkedIn",
-      "url": "https://linkedin.com/in/erencoding"
+      "url": "https://www.linkedin.com/in/eren-yal%C3%A7%C4%B1n-b372a5211/"
     }
   },
   "footer": {
@@ -61,5 +75,10 @@
   },
   "blogDetailPage": {
     "backToBlog": "Bloglara geri dön"
+  },
+  "projectsPage": {
+    "title": "Projeler",
+    "description": "Bu sayfada geliştirdiğim projeleri bulabilirsiniz.",
+    "repoUrlDescription": "Github Reposu için tıklayın..."
   }
 }

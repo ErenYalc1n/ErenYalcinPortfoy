@@ -36,5 +36,6 @@ namespace ErenYalcinPortfoy.Services
             Lang = lang;
             OnLanguageChanged?.Invoke();
         }
+
     }
 }
