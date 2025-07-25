@@ -7,16 +7,23 @@
 <div class="d-flex flex-column gap-3">
     @if (_recentProjects is not null)
     {
-        @foreach (var project in _recentProjects.Take(3))
+        @foreach (var project in _recentProjects.OrderByDescending(p => int.Parse(p.Id)).Take(3))
         {
             <div class="card border-0 shadow-sm p-3 d-flex gap-2 align-items-start hover-shadow text-dark text-decoration-none hover-grow">
-                <div class="rounded bg-secondary-subtle" style="width: 60px; height: 60px;"></div>
+                <div class="rounded" style="width: 80px; height: 80px;">
+                    <img src="@project.coverImage" class="card-img-top object-fit-cover" style="width:100%; height:100%;" />
+                </div>
                 <div>
-                    <h6 class="fw-bold mb-1">@project.Title</h6>
+                    <h6 class="fw-bold mb-1">
+                        <a href="/projects" class="text-dark text-decoration-none">
+                            @project.Title
+                        </a>
+                    </h6>
                     <p class="text-muted small mb-0">@project.Summary</p>
                 </div>
             </div>
         }
+
 
         <div class="d-flex justify-content-center mt-3">
             <a href="/projects"
@@ -74,9 +81,11 @@
 
     public class Project
     {
+        public string Id { get; set; } = "";
         public string Slug { get; set; } = "";
         public string Title { get; set; } = "";
         public string Summary { get; set; } = "";
+        public string coverImage { get; set; } = "";
     }
 
     public class SiteContent

@@ -21,6 +21,10 @@
         "label": "Anasayfa"
       },
       {
+        "key": "aboutme",
+        "label": "Hakkımda"
+      },
+      {
         "key": "projects",
         "label": "Projelerim"
       },
@@ -36,12 +40,13 @@
   },
   "hero": {
     "title": "Eren Yalçın",
-    "subtitle": ".NET Developer • Modern Web Ustası",
+    "subtitle": ".NET Developer • Modern Yazılım Teknolojileri Meraklısı",
     "button": "Projelerimi Gör"
   },
   "about": {
     "title": "Hakkımda",
-    "content": "Merhaba! Ben Eren, .NET dünyasında kod yazmayı ve modern web projeleri üretmeyi seven bir yazılımcıyım. Takım çalışmasını, sürekli öğrenmeyi ve kaliteli yazılım geliştirmeyi ön planda tutarım."
+    "content": "Merhaba! Ben Eren, .NET dünyasında kod yazmayı ve modern web projeleri üretmeyi seven bir yazılımcıyım. Temiz kod, sürdürülebilirlik ve anlaşılır mimari prensipleri benim için önceliklidir. Takım çalışmasına önem veririm, projelerde iletişim kadar yapı ve standartlara da dikkat ederim. Yeni teknolojileri takip ederek pratikte uygulamayı, sadece çalışan değil aynı zamanda geliştirilebilir sistemler kurmayı hedeflerim.",
+    "techLogo": [ "img/project/dotnet.webp", "img/project/react.webp", "img/project/blazor.webp" ]
   },
   "projectsSection": {
     "title": "Projelerim",

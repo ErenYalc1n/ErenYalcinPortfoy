@@ -7,6 +7,10 @@
         "label": "Home"
       },
       {
+        "key": "aboutme",
+        "label": "About Me"
+      },
+      {
         "key": "projects",
         "label": "Projects"
       },
@@ -17,17 +21,18 @@
       {
         "key": "contact",
         "label": "Contact"
-      }
+      }      
     ]
   },
   "hero": {
     "title": "Eren Yalçın",
-    "subtitle": ".NET Developer • Modern Web Crafter",
+    "subtitle": ".NET Developer • Modern Software Technologies Enthusiast",
     "button": "See My Projects"
   },
   "about": {
     "title": "About Me",
-    "content": "Hi! I'm Eren, a developer who loves writing code in the .NET world and building modern web projects. I value teamwork, continuous learning, and developing high-quality software."
+    "content": "Hi! I'm Eren, a developer who enjoys writing code in the .NET ecosystem and building modern web projects. Clean code, sustainability, and clear architectural principles are my top priorities. I value teamwork and pay attention not only to communication but also to structure and standards in every project. I aim to follow new technologies and apply them in practice to build systems that are not only functional but also maintainable.",
+    "techLogo": [ "img/project/dotnet.webp", "img/project/react.webp", "img/project/blazor.webp" ]
   },
   "projectsSection": {
     "title": "Projects",
@@ -42,14 +47,14 @@
   "contactSection": {
     "title": "Contact Me",
     "description": "If you'd like to get in touch, feel free to send me an email or reach out through my social media profiles.",
-    "email": "erencoding@gmail.com",
+    "email": "94.erenyalcin@gmail.com",
     "github": {
       "label": "GitHub",
-      "url": "https://github.com/erencoding"
+      "url": "https://github.com/ErenYalc1n"
     },
     "linkedin": {
       "label": "LinkedIn",
-      "url": "https://linkedin.com/in/erencoding"
+      "url": "https://www.linkedin.com/in/eren-yal%C3%A7%C4%B1n-b372a5211/"
     }
   },
   "footer": {

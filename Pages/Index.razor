@@ -9,26 +9,38 @@
 <!-- HERO SECTION -->
 @if (_content?.Hero is not null)
 {
-    <section id="hero" class="d-flex align-items-center justify-content-center text-white"
-             style="min-height: 100vh; background: linear-gradient(0deg,rgba(13,34,53,0.20),rgba(13,34,53,0.0)), url('img/hero.jpg') center; background-size: cover; background-repeat: no-repeat;">
-        <div class="text-center">
+    <section id="hero" class="d-flex align-items-center justify-content-start text-white"
+             style="min-height: 100vh; background: linear-gradient(0deg,rgba(13,34,53,0.20),rgba(13,34,53,0.0)), url('img/hero.webp') center; background-size: cover; background-repeat: no-repeat;">
+        <div class="text-start ps-5">
             <h1 class="display-3 fw-bold mb-3">@_content.Hero.Title</h1>
             <p class="lead fs-3 mb-4">@_content.Hero.Subtitle</p>
             <a href="javascript:void(0);" class="btn btn-lg btn-info rounded-pill shadow hover-fade-grow"
                @onclick='() => ScrollToSection("projects")'>@_content.Hero.Button</a>
         </div>
     </section>
+
 }
 
 <!-- HAKKIMDA -->
 @if (_content?.About is not null)
 {
-    <section id="about" class="container py-5">
+    <section id="aboutme" class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
                 <h2 class="mb-3">@_content.About.Title</h2>
                 <p class="fs-5">@_content.About.Content</p>
             </div>
+        </div>
+        <div>
+            @if (_content.About.TechLogo?.Any() == true)
+            {
+                <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                    @foreach (var logo in _content.About.TechLogo)
+                    {
+                        <img src="@logo" alt="Tech Logo" width="100" height="100" class="tech-logo" />
+                    }
+                </div>
+            }
         </div>
     </section>
 }
@@ -51,17 +63,24 @@
                                  style="width: 162px; height: 162px; object-fit: cover;" />
 
                             <div class="flex-grow-1 ps-4 p-3 d-flex flex-column justify-content-start">
-                                <h5 class="fw-bold mb-1">@project.Title</h5>
+                                <h5 class="fw-bold mb-1">
+                                    <a href="/projects" class="text-dark text-decoration-none">
+                                        @project.Title
+                                    </a>
+                                </h5>
                                 <p class="mb-2 text-muted" style="line-height: 1.4;">@project.Summary</p>
-                                <div class="d-flex flex-wrap gap-2 mt-auto">
-                                    @foreach (var tag in project.Tags)
-                                    {
-                                        <span class="px-2 py-1"
-                                              style="background-color: #e9e9e9; font-size: 0.82rem; border-radius: 4px;">
-                                            @tag
-                                        </span>
-                                    }
-                                </div>
+                                @if (project.Tags?.Any(t => !string.IsNullOrWhiteSpace(t)) == true)
+                                {
+                                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                                        @foreach (var tag in project.Tags.Where(t => !string.IsNullOrWhiteSpace(t)))
+                                        {
+                                            <span class="px-2 py-1"
+                                                  style="background-color: #e9e9e9; font-size: 0.82rem; border-radius: 4px;">
+                                                @tag
+                                            </span>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -282,6 +301,7 @@
     {
         public string Title { get; set; } = "";
         public string Content { get; set; } = "";
+        public List<string> TechLogo { get; set; } = new();
     }
 
     public class FooterContent
