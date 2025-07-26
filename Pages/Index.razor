@@ -227,7 +227,7 @@
     private async Task SetMetaTagsAsync()
     {
         var title = _content?.Navbar?.Brand ?? "Eren Yalçın";
-        var description = _content?.Seo?.Description ?? "Modern .NET ve Blazor projeleriyle yazılım dünyasında iz bırakın.";
+        var description = _content?.Seo?.Home?.Description ?? "Modern .NET ve Blazor projeleriyle yazılım dünyasında iz bırakın.";
         await JS.InvokeVoidAsync("setMeta", title, description);
     }
 
@@ -269,13 +269,17 @@
         public ProjectsSectionContent? ProjectsSection { get; set; }
         public BlogSectionContent? BlogSection { get; set; }
         public ContactSection? ContactSection { get; set; }
-        public SeoContent? Seo { get; set; } // 👈 BU YENİ
+        public SeoGroup? Seo { get; set; }
+    }
+    public class SeoGroup
+    {
+        public SeoContent? Home { get; set; }      
     }
 
     public class SeoContent
     {
         public string Title { get; set; } = "";
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = "";      
     }
 
     public class NavbarContent

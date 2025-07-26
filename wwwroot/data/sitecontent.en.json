@@ -1,4 +1,18 @@
 {
+  "seo": {
+    "home": {
+      "title": "Eren Yalçın",
+      "description": "Modern web projects, blog posts, and contact information of software developer Eren Yalçın."    
+    },
+    "projects": {
+      "title": "Projects - Eren Yalçın",
+      "description": "A list of .NET-based projects developed by Eren Yalçın."   
+    },
+    "blog": {
+      "title": "Blog - Eren Yalçın",
+      "description": "Articles on Blazor, .NET, software development, and modern web technologies."      
+    }
+  },
   "navbar": {
     "brand": "Eren Yalçın",
     "menu": [
@@ -8,7 +22,7 @@
       },
       {
         "key": "aboutme",
-        "label": "About Me"
+        "label": "About"
       },
       {
         "key": "projects",
@@ -21,21 +35,21 @@
       {
         "key": "contact",
         "label": "Contact"
-      }      
+      }
     ]
   },
   "hero": {
     "title": "Eren Yalçın",
-    "subtitle": ".NET Developer • Modern Software Technologies Enthusiast",
-    "button": "See My Projects"
+    "subtitle": ".NET Developer • Enthusiast of Modern Software Technologies",
+    "button": "View My Projects"
   },
   "about": {
     "title": "About Me",
-    "content": "Hi! I'm Eren, a developer who enjoys writing code in the .NET ecosystem and building modern web projects. Clean code, sustainability, and clear architectural principles are my top priorities. I value teamwork and pay attention not only to communication but also to structure and standards in every project. I aim to follow new technologies and apply them in practice to build systems that are not only functional but also maintainable.",
+    "content": "Hi! I’m Eren, a developer who enjoys writing code in the .NET ecosystem and building modern web projects. I prioritize clean code, sustainability, and clear architectural principles. I value teamwork and care about structure and standards as much as communication. I aim to apply new technologies in practice and build systems that are not only functional but also maintainable.",
     "techLogo": [ "img/project/dotnet.webp", "img/project/react.webp", "img/project/blazor.webp" ]
   },
   "projectsSection": {
-    "title": "Projects",
+    "title": "My Projects",
     "viewAll": "View All",
     "button": "Details"
   },
@@ -46,7 +60,7 @@
   },
   "contactSection": {
     "title": "Contact Me",
-    "description": "If you'd like to get in touch, feel free to send me an email or reach out through my social media profiles.",
+    "description": "If you'd like to get in touch, feel free to send me an email or reach out via my social media accounts.",
     "email": "94.erenyalcin@gmail.com",
     "github": {
       "label": "GitHub",
@@ -65,15 +79,12 @@
     "recentProjects": "Recent Projects"
   },
   "blogDetailPage": {
-    "backToBlog": "Back to blogs"
-  },
-  "seo": {
-    "title": "Eren Yalçın - .NET Developer",
-    "description": "Explore modern web projects and articles on Blazor, .NET, and software craftsmanship by Eren Yalçın."
+    "backToBlog": "Back to Blog"
   },
   "projectsPage": {
     "title": "Projects",
-    "description": "You can find the projects I’ve developed on this page.",
+    "description": "Here you can find the projects I’ve worked on.",
     "repoUrlDescription": "Click here for the GitHub repository..."
   }
 }
+
