@@ -12,5 +12,5 @@ obj/
 .vscode/
 # Log dosyaları
 *.log
-# Publish output (genelde yok, publish alırsan)
+# Publish output
 wwwroot/dist/
