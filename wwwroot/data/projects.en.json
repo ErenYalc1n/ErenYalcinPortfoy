@@ -5,7 +5,7 @@
     "title": "Blazor WASM Portfolio",
     "summary": "A modern, static portfolio website developed with Blazor WebAssembly and Bootstrap CSS, featuring support for both Turkish and English languages.",
     "coverImage": "img/project/blazor.webp",
-    "date": "2025-07-24",
+    "date": "2025-06-24",
     "tags": [ "C#", ".NET 9", "Blazor", "WebAssembly", "i18n", "Bootstrap", "Css", "Javascript", "Html", "SEO" ],
     "repoUrl": "https://github.com/ErenYalc1n/ErenYalcinPortfoy",
     "demoUrl": ""
@@ -17,7 +17,7 @@
     "summary": "This project is a standalone user management module built with .NET 9 and Clean Architecture principles. It includes essential features like JWT and Refresh Token, email verification, role-based authorization, password reset, advanced logging with Serilog, and global exception handling middleware, making it easy to integrate into corporate applications.",
     "coverImage": "img/project/dotnet.webp",
     "date": "2025-07-01",
-    "tags": [ ".NET 9", "WebAPI", "EF Core", "JWT", "Refresh Token", "Clean Architecture", "Serilog", "MediatR" ],
+    "tags": [ "C#", ".NET 9", "WebAPI", "EF Core", "JWT", "Refresh Token", "Clean Architecture", "Serilog", "MediatR" ],
     "repoUrl": "https://github.com/ErenYalc1n/UserModuleTemplate",
     "demoUrl": ""
   },
@@ -39,7 +39,7 @@
     "summary": "A user-friendly and mobile-compatible game interface built with React, designed to integrate seamlessly with the Wordle API. Developed with a focus on modern UI/UX.",
     "coverImage": "img/project/react.webp",
     "date": "",
-    "tags": [ "" ],
+    "tags": [ "React", "JavaScript", "Axios", "TailwindCSS", "Vite", "i18next", "React Router" ],
     "repoUrl": "",
     "demoUrl": ""
   },
@@ -50,7 +50,7 @@
     "summary": "A sector-oriented SaaS application that includes forum, blog, and service modules, developed with .NET 9. Monetization will be based on subscription or commission.",
     "coverImage": "img/project/dotnet.webp",
     "date": "",
-    "tags": [ "" ],
+    "tags": [ "C#", ".NET 9", "EF Core", "Clean Architecture", "PostgreSQL", "CQRS", "JWT", "Serilog", "MediatR" ],
     "repoUrl": "",
     "demoUrl": ""
   }

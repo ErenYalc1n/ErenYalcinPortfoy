@@ -5,7 +5,7 @@
     "title": "Blazor WASM Portföy",
     "summary": "Blazor WebAssembly ve Bootstrap CSS ile geliştirilen, Türkçe ve İngilizce destekli modern, statik bir portföy web sitesi.",
     "coverImage": "img/project/blazor.webp",
-    "date": "2025-07-24",
+    "date": "2025-06-24",
     "tags": [ "C#", ".NET 9", "Blazor", "WebAssembly", "i18n", "Bootstrap", "Css", "Javascript", "Html", "SEO" ],
     "repoUrl": "https://github.com/ErenYalc1n/ErenYalcinPortfoy",
     "demoUrl": ""
@@ -17,7 +17,7 @@
     "summary": "Bu proje, .NET 9 ve Clean Architecture prensipleri ile geliştirilen, bağımsız olarak başka projelere entegre edilebilecek bir kullanıcı yönetim modülüdür. İçerisinde JWT ve Refresh Token sistemi, e-posta doğrulama, rol bazlı yetkilendirme, şifre sıfırlama gibi birçok temel özelliği barındırır. Serilog ile gelişmiş loglama ve global exception middleware’i sayesinde kurumsal projelere entegre edilmesi oldukça kolaydır.",
     "coverImage": "img/project/dotnet.webp",
     "date": "2025-07-01",
-    "tags": [ ".NET 9", "WebAPI", "EF Core", "JWT", "Refresh Token", "Clean Architecture", "Serilog", "MediatR" ],
+    "tags": [ "C#", ".NET 9", "WebAPI", "EF Core", "JWT", "Refresh Token", "Clean Architecture", "Serilog", "MediatR" ],
     "repoUrl": "https://github.com/ErenYalc1n/UserModuleTemplate",
     "demoUrl": ""
   },
@@ -39,7 +39,7 @@
     "summary": "Wordle API ile entegre olacak, kullanıcı dostu ve mobil uyumlu React tabanlı oyun arayüzü. Modern UI/UX odaklı olarak geliştirilmektedir.",
     "coverImage": "img/project/react.webp",
     "date": "",
-    "tags": [ "" ],
+    "tags": [ "React", "JavaScript", "Axios", "TailwindCSS", "Vite", "i18next", "React Router" ],
     "repoUrl": "",
     "demoUrl": ""
   },
@@ -50,7 +50,7 @@
     "summary": ".NET 9 kullanarak belirli bir sektöre yönelik kapsamlı bir forum, blog, hizmet SaaS uygulaması.",
     "coverImage": "img/project/dotnet.webp",
     "date": "",
-    "tags": [ "" ],
+    "tags": [ "C#", ".NET 9", "EF Core", "Clean Architecture", "PostgreSQL", "CQRS", "JWT", "Serilog", "MediatR" ],
     "repoUrl": "",
     "demoUrl": ""
   }
